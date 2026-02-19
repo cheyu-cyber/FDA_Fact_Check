@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FDA Adverse Event Fact Checker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header>
+    <h1>🔬 FDA Adverse Event Fact Checker</h1>
+    <p>Verify drug-related adverse event claims using real FDA reporting data</p>
+  </header>
+
+  <div class="container">
+    <!-- Search form -->
+    <div class="card">
+      <h2>Search Adverse Event Reports</h2>
+      <form method="POST" action="/">
+        <div class="form-row">
+          <div class="field">
+            <label for="drug_name">Drug / Medication name</label>
+            <input
+              type="text"
+              id="drug_name"
+              name="drug_name"
+              placeholder="e.g. Tylenol"
+              value="{{ drug_name }}"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="reaction">Adverse reaction / condition</label>
+            <input
+              type="text"
+              id="reaction"
+              name="reaction"
+              placeholder="e.g. Autism"
+              value="{{ reaction }}"
+              required
+            />
+          </div>
+          <button type="submit">Fact Check</button>
+        </div>
+      </form>
+      <p class="examples">
+        Try:
+        <a onclick="fillExample('Tylenol','Autism')">Tylenol → Autism</a>
+        <a onclick="fillExample('Ibuprofen','Heart attack')">Ibuprofen → Heart attack</a>
+        <a onclick="fillExample('Aspirin','Gastrointestinal haemorrhage')">Aspirin → GI bleeding</a>
+      </p>
+    </div>
+
+    <!-- Results -->
+    {% if result %}
+      {% if result.error %}
+        <div class="alert-error">⚠️ {{ result.error }}</div>
+      {% else %}
+        {% set v = result.verdict %}
+        {% if v.label == 'SUPPORTED' %}
+          {% set banner_class = 'supported' %}
+          {% set icon = '✅' %}
+        {% elif v.label == 'INSUFFICIENT EVIDENCE' %}
+          {% set banner_class = 'insufficient' %}
+          {% set icon = '⚠️' %}
+        {% else %}
+          {% set banner_class = 'not-supported' %}
+          {% set icon = '❌' %}
+        {% endif %}
+
+        <div class="result-card">
+          <div class="verdict-banner {{ banner_class }}">
+            <span class="verdict-label">{{ icon }} {{ v.label }}</span>
+            <span class="verdict-summary">{{ v.summary }}</span>
+          </div>
+          <div class="result-body">
+            <div class="stats">
+              <div class="stat-box">
+                <div class="number">{{ "{:,}".format(result.total_drug_reports) }}</div>
+                <div class="label">Total reports for<br/><strong>{{ result.drug_name }}</strong></div>
+              </div>
+              <div class="stat-box">
+                <div class="number">{{ "{:,}".format(result.reaction_reports) }}</div>
+                <div class="label">Reports also mentioning<br/><strong>{{ result.reaction }}</strong></div>
+              </div>
+              {% if result.total_drug_reports > 0 %}
+              <div class="stat-box">
+                <div class="number">
+                  {{ "%.2f"|format((result.reaction_reports / result.total_drug_reports) * 100) }}%
+                </div>
+                <div class="label">Percentage of drug<br/>reports with reaction</div>
+              </div>
+              {% endif %}
+            </div>
+            <p class="detail-text">{{ v.detail }}</p>
+            <div class="disclaimer">
+              📋 <strong>Data source:</strong> FDA Adverse Event Reporting System (FAERS) via OpenFDA API.
+              Adverse event reports are submitted voluntarily and do not imply causation.
+              This tool is for informational purposes only and is not a substitute for professional medical advice.
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <footer>
+    Powered by the <a href="https://open.fda.gov/apis/drug/event/" target="_blank">OpenFDA Drug Event API</a>
+  </footer>
+
+  <script>
+    function fillExample(drug, reaction) {
+      document.getElementById('drug_name').value = drug;
+      document.getElementById('reaction').value = reaction;
+    }
+  </script>
+</body>
+</html>
