@@ -1,0 +1,225 @@
+/* FDA Adverse Event Fact Checker – Styles */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #2d3748;
+  min-height: 100vh;
+}
+
+header {
+  background: #1a365d;
+  color: #fff;
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 0.02em;
+}
+
+header p {
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.container {
+  max-width: 760px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+/* Search card */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+  margin-bottom: 1.5rem;
+}
+
+.card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+  color: #1a365d;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.field {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+input[type="text"] {
+  padding: 0.6rem 0.8rem;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49,130,206,0.2);
+}
+
+button[type="submit"] {
+  padding: 0.65rem 1.6rem;
+  background: #2b6cb0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+button[type="submit"]:hover {
+  background: #2c5282;
+}
+
+.examples {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: #718096;
+}
+
+.examples a {
+  color: #3182ce;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.examples a:hover {
+  text-decoration: underline;
+}
+
+/* Error */
+.alert-error {
+  background: #fff5f5;
+  border-left: 4px solid #e53e3e;
+  padding: 1rem 1.2rem;
+  border-radius: 6px;
+  color: #c53030;
+  font-weight: 500;
+}
+
+/* Result card */
+.result-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+}
+
+.verdict-banner {
+  padding: 1.2rem 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.verdict-banner.supported {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.verdict-banner.insufficient {
+  background: #fefcbf;
+  color: #744210;
+}
+
+.verdict-banner.not-supported {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+.verdict-label {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.verdict-summary {
+  font-size: 0.95rem;
+}
+
+.result-body {
+  background: #fff;
+  padding: 1.5rem 1.8rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.stat-box {
+  background: #ebf8ff;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+  min-width: 140px;
+}
+
+.stat-box .number {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2b6cb0;
+}
+
+.stat-box .label {
+  font-size: 0.78rem;
+  color: #4a5568;
+  margin-top: 0.2rem;
+}
+
+.detail-text {
+  font-size: 0.9rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+.disclaimer {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  background: #f7fafc;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: #718096;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.82rem;
+  color: #a0aec0;
+}
